@@ -113,15 +113,6 @@ This presentation is divided into 3 main parts:
 
 ---
 
-## Research questions
-
-The thesis has the main underlying question:
-
-* **How temperature is associated with higher levels of dengue hospitalizations in Brazil?**
-The study covers 10 years (2010 - 2019) of dengue hospitalization incidence
-
----
-
 class: middle, center, inverse
 
 # Historical background
@@ -259,35 +250,6 @@ Where $\lambda_{t,i}$ is as before the mean of count of cases at $t$ on the i-th
 
 ---
 
-## Crossbasis Parametrization
-
-The *cross-basis* were parameterized as the standard in __DLNM__ for mean temperature: 
-
-  + A *natural splines* with 2 knots equally spaced on the range of mean temperature,
-for the structure to the doses-response
-
-  + A *natural spline* with 3 knots equally spaced on the log-scale for the lag-response structure
-
-  + 0 to the date of hospitalization until 21 days of lags, before the date of hospitalization
-
----
-
-## Geographical Variation
-
-Why we make use of such models? Because environmental exposures has two main features that needs attention to be drowned:
-
-  + Normally, exposures varies in a narrow range, environmental exposures like temperature __not__, it varies along different locations
-
-  + Normally, exposures have a very short time-window of action, environment exposures __not__, it can acts all the time for the all the subjects
-
----
-
-```{r geo, echo=FALSE, message=FALSE, warning=FALSE, out.width=800, fig.align='center'}
-knitr::include_graphics("img/geo_temp_inset.png")
-```
-
----
-
 ## Second Stage
 
 For the second stage we choose a multivariate meta-analysis model, on each meta-analysis level, whole country or by macro region, with the following formulation:
@@ -327,22 +289,11 @@ knitr::include_graphics("img/plot_overall_regions_all_regions_gnm_meta.png")
 
 ---
 
-## Table Summary
-
-```{r table-summary, echo=FALSE, message=FALSE, warning=FALSE, out.width=800}
-table<-vroom::vroom(file = "Tables/table_1_mht_RR_absolute.csv")
-table<-table |>  
-  setNames(c("Region", "MHT", "RR 50th (IC 95%)", "RR 95th (IC 95%)"))
-rmarkdown::paged_table(table)
-```
-
----
-
 ## Conclusion & Interpretation
 
   * The main finding is that there is a higher risk of being hospitalised by dengue as the temperature gets higher.
   
-  * After 20 degrees Celsius, the relative risk is 1·2x higher than for the minimum temperature of hospitalisation (10·8 º C)
+  * At the 50th percentile of temperature, the RR for dengue hospitalization is 1.4x higher than at MHT, at 95th it is 1.5x higher than at MHT
   
   * We found a stronger immediate effect on the RR to the hospitalisation, with a slight lagged effect
   
@@ -357,6 +308,7 @@ class: middle, center, inverse
 # Nowcaster R package
 
 In collaboration with: Leonardo Bastos, (FioCruz)
+
 ]
 
 .pull-right[
@@ -439,6 +391,57 @@ class: middle, center
 # ¡Gracias!
 # Obrigado!
 
-`r fontawesome::fa("github")` GitHub: [https://github.com/rafalopespx/](https://github.com/rafalopespx/)
-`r fontawesome::fa("mail-bulk")`  [lopes1313@gmail.com](mailto:lopes1313@gmail.com)
-`r fontawesome::fa("twitter")` Twitter: [@rafalpx](www.twitter.com/rafalpx)
+`r fontawesome::fa("github")` GitHub: [**https://github.com/rafalopespx/**](https://github.com/rafalopespx/)
+`r fontawesome::fa("mail-bulk")`e-mail:[**lopes1313@gmail.com**](mailto:lopes1313@gmail.com)
+`r fontawesome::fa("twitter")` Twitter: [**@rafalpx**](www.twitter.com/rafalpx)
+`r fontawesome::fa("chart-line")` Nowcaster: [**https://covid19br.github.io/nowcaster**](https://covid19br.github.io/nowcaster)
+
+---
+
+## Crossbasis Parametrization
+
+The *cross-basis* were parameterized as the standard in __DLNM__ for mean temperature: 
+
+  + A *natural splines* with 2 knots equally spaced on the range of mean temperature,
+for the structure to the doses-response
+
+  + A *natural spline* with 3 knots equally spaced on the log-scale for the lag-response structure
+
+  + 0 to the date of hospitalization until 21 days of lags, before the date of hospitalization
+
+---
+
+## Geographical Variation
+
+Why we make use of such models? Because environmental exposures has two main features that needs attention to be drowned:
+
+  + Normally, exposures varies in a narrow range, environmental exposures like temperature __not__, it varies along different locations
+
+  + Normally, exposures have a very short time-window of action, environment exposures __not__, it can acts all the time for the all the subjects
+
+---
+
+```{r geo, echo=FALSE, message=FALSE, warning=FALSE, out.width=800, fig.align='center'}
+knitr::include_graphics("img/geo_temp_inset.png")
+```
+
+---
+
+## Table Summary
+
+```{r table-summary, echo=FALSE, message=FALSE, warning=FALSE, out.width=800}
+table<-vroom::vroom(file = "Tables/table_1_mht_RR_absolute.csv")
+table<-table |>  
+  setNames(c("Region", "MHT", "RR 50th (IC 95%)", "RR 95th (IC 95%)"))
+rmarkdown::paged_table(table)
+```
+
+---
+
+## Research questions
+
+The thesis has the main underlying question:
+
+* **How temperature is associated with higher levels of dengue hospitalizations in Brazil?**
+The study covers 10 years (2010 - 2019) of dengue hospitalization incidence
+

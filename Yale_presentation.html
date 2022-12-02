@@ -88,15 +88,6 @@ This presentation is divided into 3 main parts:
 
 ---
 
-## Research questions
-
-The thesis has the main underlying question:
-
-* **How temperature is associated with higher levels of dengue hospitalizations in Brazil?**
-The study covers 10 years (2010 - 2019) of dengue hospitalization incidence
-
----
-
 class: middle, center, inverse
 
 # Historical background
@@ -111,7 +102,7 @@ Dengue has been a major problem in Brazil throughout the 20th Century:
 
 - The main vector of dengue, _Aedes Aegypti_ got locally eliminated, but was reintroduced in the 1970s
 
-- Since then, dengue has continuously risen in incidence and dispersion over the Brazillian territory
+- Since then, dengue has continuously risen in incidence and dispersion over the Brazilian territory
 
 - Since 2001, a dedicated system of notification and surveillance to the disease was built
 
@@ -128,7 +119,7 @@ Dengue has the following characteristic:
   - incubation period of four- to six-day and persists until around the time fever abates, 
 which is typically three to seven days, potential of cryptic transmissions
 
-  - endemic disease in Brazil, with anual cycles of outbreaks
+  - endemic disease in Brazil, with yearly cycles of outbreaks
 
 ]
 
@@ -160,7 +151,7 @@ The time-series of cases shows:
 
   - endemicity, endemic of annual outbreaks  of four different serotypes
 
-  - More recently, since 2020, has been raising on incidence and spread to the South region
+  - More recently, since 2020, has been a raising on incidence and spread to the South region
 
 ---
 
@@ -208,15 +199,15 @@ We did a two-stages design, to the association of the daily mean temperature and
 
 ## Model specification, first stage
 
-We suppose the dengue hospitalization counts in a city `\(i\)` at time `\(t\)` is given by a `\(Poisson(\lambda_{i,t})\)` distribution, with the conditional that `\(Y_{.,t} = \sum_i Y_{i,t}\)`:
+We suppose the dengue hospitalization counts in a city `\(i\)` at time `\(t\)` is given by a `\(Poisson(\lambda_{i,t})\)` distribution, with the conditional that `\(Y_{.,t} = \sum_i Y_{i,t}\)`, this can be rewritten as:
 
 $$
 `\begin{equation}
-Y_{i,t} \sim Poisson^*(\lambda_{i,t},\psi)
+Y_{i,t} \sim quasiPoisson(\lambda_{i,t},\psi)
 \end{equation}`
 $$
 
-Where the `\(\lambda_{i,t}\)` is the mean of `\(Poisson\)` distribution and `\(\psi\)` is the parameter to control overdispersion, and we choose a log function for the link-function
+Where the `\(\lambda_{i,t}\)` is the mean of `\(quasiPoisson\)` distribution and `\(\psi\)` is the parameter to control overdispersion, and we choose a log function for the link-function
 
 ---
 
@@ -227,33 +218,6 @@ On each of 27 states, we run a Conditional Poisson model, for the association be
 `$$log[\lambda_{i,t}] = \xi_{t,i} + f(x_{t,i},l) + \sum_{k=1}^{K}s_k(t)$$`
 
 Where `\(\lambda_{t,i}\)` is as before the mean of count of cases at `\(t\)` on the i-th municipality, `\(\xi_{t,i}\)` the dow-month-city strata term conditioned out. `\(f(x_{t,i}, l)\)` which is the __DLNM__ for mean temperature on the state by each day of delay, until 21 days of lags. The last term is the long-term trend for temperature trend along the whole period, a natural spline with 7 degrees of freedom by year on the whole period.
-
----
-
-## Crossbasis Parametrization
-
-The *cross-basis* were parametrized as the standard in __DLNM__ for mean temperature: 
-
-  + A *natural splines* with 2 knots equally spaced on the range of mean temperature,
-for the structure to the doses-response
-
-  + A *natural spline* with 3 knots equally spaced on the log-scale for the lag-response structure
-
-  + 0 to the date of hospitalization until 21 days of lags, before the date of hospitalization
-
----
-
-## Geographical Variation
-
-Why we make use of such models? Because enviromental exposures has two main features that needs atention to be drawned:
-
-  + Normally, exposures varies in a narrow range, environmental exposures like temperature __not__, it varies along different locations
-
-  + Normally, exposures have a very short time-window of action, environment exposures __not__, it can acts all the time for the all the subjects
-
----
-
-&lt;img src="img/geo_temp_inset.png" width="800" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -292,21 +256,11 @@ class: middle, center
 
 ---
 
-## Table Summary
-
-&lt;div data-pagedtable="false"&gt;
-  &lt;script data-pagedtable-source type="application/json"&gt;
-{"columns":[{"label":["Region"],"name":[1],"type":["chr"],"align":["left"]},{"label":["MHT"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["RR 50th (IC 95%)"],"name":[3],"type":["chr"],"align":["left"]},{"label":["RR 95th (IC 95%)"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"Brazil","2":"10.8","3":"1.404 (1.274-1.548)","4":"1.491 (1.337-1.664)"},{"1":"North","2":"22.8","3":"1.153 (1.026-1.295)","4":"1.256 (1.039-1.518)"},{"1":"Northeast","2":"19.7","3":"1.196 (1.091-1.312)","4":"1.255 (1.059-1.488)"},{"1":"Center-West","2":"17.0","3":"1.303 (1.093-1.553)","4":"1.460 (1.198-1.779)"},{"1":"Southeast","2":"13.7","3":"1.353 (1.171-1.563)","4":"1.498 (1.298-1.729)"},{"1":"South","2":"7.4","3":"2.723 (1.447-5.125)","4":"2.508 (1.362-4.618)"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  &lt;/script&gt;
-&lt;/div&gt;
-
----
-
 ## Conclusion &amp; Interpretation
 
   * The main finding is that there is a higher risk of being hospitalised by dengue as the temperature gets higher.
   
-  * After 20 degrees Celsius, the relative risk is 1·2x higher than for the minimum temperature of hospitalisation (10·8 º C)
+  * At the 50th percentile of temperature, the RR for dengue hospitalization is 1.4x higher than at MHT, at 95th it is 1.5x higher than at MHT
   
   * We found a stronger immediate effect on the RR to the hospitalisation, with a slight lagged effect
   
@@ -321,6 +275,7 @@ class: middle, center, inverse
 # Nowcaster R package
 
 In collaboration with: Leonardo Bastos, (FioCruz)
+
 ]
 
 .pull-right[
@@ -403,9 +358,57 @@ class: middle, center
 # ¡Gracias!
 # Obrigado!
 
-<svg aria-hidden="true" role="img" viewBox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg> GitHub: [https://github.com/rafalopespx/](https://github.com/rafalopespx/)
-<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M96 0C78.3 0 64 14.3 64 32V224h96V192c0-35.3 28.7-64 64-64H448V32c0-17.7-14.3-32-32-32H96zM224 160c-17.7 0-32 14.3-32 32v32h96c35.3 0 64 28.7 64 64V416H544c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32H224zm240 64h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H464c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zM32 256c-17.7 0-32 14.3-32 32v13L155.1 415.9c1.4 1 3.1 1.6 4.9 1.6s3.5-.6 4.9-1.6L320 301V288c0-17.7-14.3-32-32-32H32zm288 84.8L184 441.6c-6.9 5.1-15.3 7.9-24 7.9s-17-2.8-24-7.9L0 340.8V480c0 17.7 14.3 32 32 32H288c17.7 0 32-14.3 32-32V340.8z"/></svg>  [lopes1313@gmail.com](mailto:lopes1313@gmail.com)
-<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg> Twitter: [@rafalpx](www.twitter.com/rafalpx)
+<svg aria-hidden="true" role="img" viewBox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg> GitHub: [**https://github.com/rafalopespx/**](https://github.com/rafalopespx/)
+<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M96 0C78.3 0 64 14.3 64 32V224h96V192c0-35.3 28.7-64 64-64H448V32c0-17.7-14.3-32-32-32H96zM224 160c-17.7 0-32 14.3-32 32v32h96c35.3 0 64 28.7 64 64V416H544c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32H224zm240 64h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H464c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zM32 256c-17.7 0-32 14.3-32 32v13L155.1 415.9c1.4 1 3.1 1.6 4.9 1.6s3.5-.6 4.9-1.6L320 301V288c0-17.7-14.3-32-32-32H32zm288 84.8L184 441.6c-6.9 5.1-15.3 7.9-24 7.9s-17-2.8-24-7.9L0 340.8V480c0 17.7 14.3 32 32 32H288c17.7 0 32-14.3 32-32V340.8z"/></svg>e-mail:[**lopes1313@gmail.com**](mailto:lopes1313@gmail.com)
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg> Twitter: [**@rafalpx**](www.twitter.com/rafalpx)
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zm406.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L320 210.7l-57.4-57.4c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L240 221.3l57.4 57.4c12.5 12.5 32.8 12.5 45.3 0l128-128z"/></svg> Nowcaster: [**https://covid19br.github.io/nowcaster**](https://covid19br.github.io/nowcaster)
+
+---
+
+## Crossbasis Parametrization
+
+The *cross-basis* were parameterized as the standard in __DLNM__ for mean temperature: 
+
+  + A *natural splines* with 2 knots equally spaced on the range of mean temperature,
+for the structure to the doses-response
+
+  + A *natural spline* with 3 knots equally spaced on the log-scale for the lag-response structure
+
+  + 0 to the date of hospitalization until 21 days of lags, before the date of hospitalization
+
+---
+
+## Geographical Variation
+
+Why we make use of such models? Because environmental exposures has two main features that needs attention to be drowned:
+
+  + Normally, exposures varies in a narrow range, environmental exposures like temperature __not__, it varies along different locations
+
+  + Normally, exposures have a very short time-window of action, environment exposures __not__, it can acts all the time for the all the subjects
+
+---
+
+&lt;img src="img/geo_temp_inset.png" width="800" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Table Summary
+
+&lt;div data-pagedtable="false"&gt;
+  &lt;script data-pagedtable-source type="application/json"&gt;
+{"columns":[{"label":["Region"],"name":[1],"type":["chr"],"align":["left"]},{"label":["MHT"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["RR 50th (IC 95%)"],"name":[3],"type":["chr"],"align":["left"]},{"label":["RR 95th (IC 95%)"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"Brazil","2":"10.8","3":"1.404 (1.274-1.548)","4":"1.491 (1.337-1.664)"},{"1":"North","2":"22.8","3":"1.153 (1.026-1.295)","4":"1.256 (1.039-1.518)"},{"1":"Northeast","2":"19.7","3":"1.196 (1.091-1.312)","4":"1.255 (1.059-1.488)"},{"1":"Center-West","2":"17.0","3":"1.303 (1.093-1.553)","4":"1.460 (1.198-1.779)"},{"1":"Southeast","2":"13.7","3":"1.353 (1.171-1.563)","4":"1.498 (1.298-1.729)"},{"1":"South","2":"7.4","3":"2.723 (1.447-5.125)","4":"2.508 (1.362-4.618)"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+---
+
+## Research questions
+
+The thesis has the main underlying question:
+
+* **How temperature is associated with higher levels of dengue hospitalizations in Brazil?**
+The study covers 10 years (2010 - 2019) of dengue hospitalization incidence
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
