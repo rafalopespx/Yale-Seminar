@@ -1,0 +1,4 @@
+"0","table<-vroom::vroom(file = ""Tables/table_1_mht_RR_absolute.csv"")"
+"0","table<-table |>  "
+"0","  setNames(c(""Region"", ""MHT"", ""RR 50th (IC 95%)"", ""RR 95th (IC 95%)""))"
+"0","rmarkdown::paged_table(table)"
