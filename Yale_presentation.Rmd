@@ -333,7 +333,7 @@ Every single notification system has delays, the majority are in between date of
 
 ## Nowcaster R Package
 
-Nowcaster wrapper a set of functions for nowcasting the delays, it is based on the __INLA__ R package, which is a **I**ntegrated **N**ested **L**aplace **A**pproximation engine for bayesian inference
+Nowcaster wrapper a set of functions for nowcasting the delays, it is based on the __INLA__ R package, which is a **I**ntegrated **N**ested **L**aplace **A**pproximation engine for Bayesian inference
 
 * INLA is faster than the traditional methods of Bayesian inference like MCMC
 
@@ -362,6 +362,18 @@ Age dependent model has the form: $Y_{t,d,a} \sim NegBinom(\lambda_{t,d,a}, \phi
 $$log(\lambda_{t,d,a}) = \alpha_{a} + \beta_{t,a} + \gamma_{d,a}$$
 
 where each age class, $a$, has an intercept $\alpha_{a}$ following a Gaussian distribution with a very large variance, as before the $\beta$ and $\gamma$ terms are a second-order random walk and a first-order random walk, respectively.
+
+---
+
+class: middle, center, inverse
+
+## Results
+
+---
+
+```{r results, echo=FALSE, message=FALSE, warning=FALSE, out.width=700, fig.align='center'}
+knitr::include_graphics("img/BH_nowcast_realized.png")
+```
 
 ---
 
