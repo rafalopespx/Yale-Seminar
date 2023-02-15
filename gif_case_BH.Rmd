@@ -1,0 +1,71 @@
+---
+title: "gif for delays"
+utput:
+  html_document:
+  toc: true
+toc_float: true
+code_folding: hide
+---
+  
+  
+```{r gif-setup, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(nowcaster)
+library("tidyverse")
+library("cowplot")
+library("plotly")
+library("gganimate")
+library("RColorBrewer")
+library("transformr")
+library("readr")
+library(gifski)
+
+end.of.epiweek <- function(x, end = 6) {
+  offset <- (end - 4) %% 7
+  num.x <- as.numeric(x)
+  return(x - (num.x %% 7) + offset + ifelse(num.x %% 7 > offset, 7, 0))
+}
+
+dados <- sragBH |> 
+  mutate(week_onset = end.of.epiweek(DT_SIN_PRI), 
+         week_report = end.of.epiweek(DT_DIGITA)) |> 
+  group_by(week_onset, week_report) |> 
+  summarise(n= n())
+
+# Setting locale to Brasil
+# Sys.setlocale(category = "LC_TIME", locale = "pt_BR.UTF-8")
+```
+
+
+```{r gif}
+nowc <-dados |> 
+  ggplot() +
+  geom_line(aes(x = week_onset, y = n, colour = factor(week_report)), size = 2) +
+  geom_vline(aes(xintercept = week_report, colour = factor(week_report)), linetype = "dashed", size = 0.5, alpha = 0.5) +
+  geom_text(aes(x = week_report - 7, y = 50, label = paste0("Data of report:\n", week_report), colour = factor(week_report)), size = 6) +
+  scale_x_date(date_labels = "%d/%B") +
+  scale_colour_viridis_d(direction = -1) +
+  labs(x = "Date of onset of symptons", 
+       y = "N of Cases", 
+       colour = "Data of report", 
+       # title = "Evolução de Óbitos por Data de Óbito", 
+       # subtitle = "Observatório COVID19 BR; covid19br.github.io",
+       # caption = "Fonte: Boletins Epidemiológicos do Ministério da Saúde e SIVEP-Gripe"
+  ) +
+  theme_cowplot() +
+  theme(legend.position = "none",
+        plot.title = element_text(hjust = 0.5, size = 22),
+        plot.subtitle = element_text(hjust = 0.5, size = 18),
+        axis.text.x = element_text(size = 16),
+        axis.text.y = element_text(size = 16),
+        axis.title.x = element_text(size = 18, face = "bold"),
+        axis.title.y = element_text(size = 18, face = "bold"))+
+  transition_states(factor(week_report)) +
+  shadow_mark(colour = "lightgrey", alpha = 0.5, size = 1, exclude_layer = c(2, 3))
+
+animate(nowc,
+        duration = 30,
+        end_pause = 7,
+        width = 800,
+        height = 800)
+
+```
