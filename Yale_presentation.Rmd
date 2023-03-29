@@ -2,7 +2,7 @@
 title: "Dengue dynamics in Brazil under climate drivers"
 # subtitle: "Analysis with ecological and epidemiological frameworks"
 author: "Rafael Lopes Paixão da Silva"
-institute: "IFT, Unesp"
+institute: "Yale University, School of Public Health \n Grubaugh Lab"
 date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
@@ -32,36 +32,39 @@ library(knitr)
 library(DT)
 library(RefManageR)
 library(icons)
-# duo_accent(
-#   primary_color = "#A70000",
-#   secondary_color = "#ff0000",
-#   white_color = "white",
-#   header_font_google = google_font("Roboto Condensed"),
-#   text_font_google   = google_font("Roboto Condensed", "300", "300i"),
-#   code_font_google   = google_font("Ubuntu Mono"), text_font_size = "30px")
-# use_extra_styles(
-#   hover_code_line = TRUE, 
-#   mute_unhighlighted_code = TRUE)
-xaringanthemer::style_mono_accent(
-  base_color = "#A70000",
-  #  primary_color = "#A70000",
-  #secondary_color = "#ff0000",
+duo_accent(
+ primary_color = "#00356B",
+secondary_color = "#286dc0",
   white_color = "white",
-  colors = c(
-    red = "#A70000",
-    purple = "#88398a",
-    orange = "#ff8811",
-    green = "#136f63",
-    blue = "#4B4FFF",
-    white = "#FFFFFF",
-    black = "#181818"
-  ),
   header_font_google = google_font("Roboto Condensed"),
   text_font_google   = google_font("Roboto Condensed", "300", "300i"),
-  code_font_google   = google_font("Ubuntu Mono"),
-  text_font_size = "30px",
-  code_font_size = "30px",
-)
+  code_font_google   = google_font("Ubuntu Mono"), text_font_size = "30px")
+use_extra_styles(
+  hover_code_line = TRUE,
+  mute_unhighlighted_code = TRUE)
+# xaringanthemer::style_mono_accent(
+#   base_color = "#00356B",
+#   #  primary_color = "#00356B",
+#   # secondary_color = "#286dc0",
+#   white_color = "white",
+#   colors = c(
+#     yaleblue = "#00356B",
+#     secondaryblue="#286dc0",
+#     terciaryblue="#63aaff",
+#     gray1="#222222",
+#     gray2="#4a4a4a",
+#     gray3="#978d85",
+#     gray4="#dddddd",
+#     gray5="#f9f9f9",
+#     accent1="#5f712d",
+#     accent2="#bd5319"
+#   ),
+#   header_font_google = google_font("Roboto Condensed"),
+#   text_font_google   = google_font("Roboto Condensed", "300", "300i"),
+#   code_font_google   = google_font("Ubuntu Mono"),
+#   text_font_size = "30px",
+#   code_font_size = "30px",
+# )
 xaringanExtra::use_share_again()
 ```
 
@@ -75,7 +78,7 @@ class: left
 
 `r fontawesome::fa("github")` GitHub: [https://github.com/rafalopespx/](https://github.com/rafalopespx/)
 
-`r fontawesome::fa("mail-bulk")` e-Mail: [lopes1313@gmail.com](mailto:lopes1313@gmail.com)
+`r fontawesome::fa("mail-bulk")` e-Mail: [rafael.lopes@yale.edu](mailto:rafael.lopes@yale.edu)
 
 `r fontawesome::fa("twitter")` Twitter: [@rafalpx](www.twitter.com/rafalpx)
 
@@ -113,7 +116,7 @@ This presentation is divided into 3 main parts:
 
 ---
 
-class: middle, center, inverse
+class: middle, center, inverse, hide-logo
 
 # Historical background
 
@@ -158,18 +161,6 @@ knitr::include_graphics("img/Aedes_aegypti.jpg")
 
 ---
 
-## Characteristics of dataset
-
-The SINAN-Dengue has:
-
-  - ~11.0 million of individual cases confirmed for dengue, with information of Sex, Age, Municipality of Residence, from 2001 to 2020
-
-  - Sparse data before 2000, due to non obligatory notification, more consistent data after 2001
-
-  - With the majority of cases in the Southeast region and Northeast regions, ~5.7 millions and ~2.2 million cases, respectively
-
----
-
 ## Characteristics of dengue epidemics
 
 The time-series of cases shows:
@@ -188,7 +179,7 @@ knitr::include_graphics("img/dengue_cases_regions_after_2001.png")
 
 ---
 
-class: middle, center, inverse
+class: middle, center, inverse, hide-logo
 
 # Epidemiological analysis
 
@@ -265,7 +256,7 @@ Where $\hat{\theta_i}$ is a vector of $k\times1$ combined effects to the estimat
 
 ---
 
-class: middle, center
+class: middle, center, hide-logo
 
 # Second Stage Results, Whole Country Meta-analysis
 
@@ -273,11 +264,12 @@ class: middle, center
 
 ```{r brasil-overal-absolute, echo=FALSE, message=FALSE, warning=FALSE, out.width=800, fig.align='center'}
 knitr::include_graphics("img/figure_1_meta_analysis.png")
+
 ```
 
 ---
 
-class: middle, center
+class: middle, center, hide-logo
 
 # Second Stage Results, Regions Meta-analysis
 
@@ -301,7 +293,7 @@ knitr::include_graphics("img/plot_overall_regions_all_regions_gnm_meta.png")
 
 ---
 
-class: middle, center, inverse
+class: middle, center, inverse, hide-logo
 
 .pull-left[
 
@@ -363,29 +355,10 @@ $$log(\lambda_{t,d,a}) = \alpha_{a} + \beta_{t,a} + \gamma_{d,a}$$
 
 where each age class, $a$, has an intercept $\alpha_{a}$ following a Gaussian distribution with a very large variance, as before the $\beta$ and $\gamma$ terms are a second-order random walk and a first-order random walk, respectively.
 
----
-
-## Acknowledgements
-
-.pull-left[
-
-- To my financing agencies for the financial support, CNPq, for the Ph.D. fellowship and CAPES for the exchange period abroad fellowship
-
-- To the IFT for the material support and program support, to the ISGlobal for the exchange period
-
-]
-
-.pull-right[
-
-# <a href='https://www.gov.br/capes/pt-br'><img src='img/logo-capes.jpg' align="right" width="240" /></a> <a href='https://www.gov.br/cnpq/pt-br'><img src='img/logo-cnpq.png' align="right" width="240" /></a>
-
-# <a href='https://www.ift.unesp.br'><img src='img/logo-IFT.png' align="right" width="240" /></a> <a href='https://www.isglobal.org'><img src='img/logo-ISGlobal.png' align="right" width="240" /></a>
-]
-
 
 ---
 
-class: middle, center
+class: middle, center, hide-logo
 
 # Thank You!
 # ¡Gracias!
