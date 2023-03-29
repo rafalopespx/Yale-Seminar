@@ -1,7 +1,7 @@
 ---
 title: "Dengue dynamics in Brazil under climate drivers"
 # subtitle: "Analysis with ecological and epidemiological frameworks"
-author: "Rafael Lopes"
+author: "Rafael Lopes Paixão da Silva"
 institute: "Yale University, School of Public Health \n Grubaugh Lab"
 date: "`r Sys.Date()`"
 output:
@@ -325,7 +325,7 @@ Every single notification system has delays, the majority are in between date of
 
 ## Nowcaster R Package
 
-Nowcaster wrapper a set of functions for nowcasting the delays, it is based on the __INLA__ R package, which is a **I**ntegrated **N**ested **L**aplace **A**pproximation engine for bayesian inference
+Nowcaster wrapper a set of functions for nowcasting the delays, it is based on the __INLA__ R package, which is a **I**ntegrated **N**ested **L**aplace **A**pproximation engine for Bayesian inference
 
 * INLA is faster than the traditional methods of Bayesian inference like MCMC
 
@@ -355,6 +355,36 @@ $$log(\lambda_{t,d,a}) = \alpha_{a} + \beta_{t,a} + \gamma_{d,a}$$
 
 where each age class, $a$, has an intercept $\alpha_{a}$ following a Gaussian distribution with a very large variance, as before the $\beta$ and $\gamma$ terms are a second-order random walk and a first-order random walk, respectively.
 
+---
+
+class: middle, center, inverse
+
+## Results
+
+---
+
+```{r results, echo=FALSE, message=FALSE, warning=FALSE, out.width=700, fig.align='center'}
+knitr::include_graphics("img/BH_nowcast_realized.png")
+```
+
+---
+
+## Acknowledgements
+
+.pull-left[
+
+- To my financing agencies for the financial support, CNPq, for the Ph.D. fellowship and CAPES for the exchange period abroad fellowship
+
+- To the IFT for the material support and program support, to the ISGlobal for the exchange period
+
+]
+
+.pull-right[
+
+# <a href='https://www.gov.br/capes/pt-br'><img src='img/logo-capes.jpg' align="right" width="240" /></a> <a href='https://www.gov.br/cnpq/pt-br'><img src='img/logo-cnpq.png' align="right" width="240" /></a>
+
+# <a href='https://www.ift.unesp.br'><img src='img/logo-IFT.png' align="right" width="240" /></a> <a href='https://www.isglobal.org'><img src='img/logo-ISGlobal.png' align="right" width="240" /></a>
+]
 
 ---
 
